@@ -21,6 +21,11 @@
     />
     <Button
         style="@style/MenuButtons"
+        android:text="@string/continue_button"
+        android:onClick="newGame"
+    />
+    <Button
+        style="@style/MenuButtons"
         android:text="@string/highscore_button"
     />
     <Button
