@@ -1,8 +1,11 @@
 package com.example.vf.vfslidepuzzle;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,10 +13,16 @@ import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
 
+    private SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View continueButton = findViewById(R.id.continueGame);
+        if(savedInstanceState == null){
+            continueButton.setEnabled(false);
+        }
     }
 
 
@@ -39,7 +48,24 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Clears shared prefs of the GameActivity and enables the continuebutton for resuming
     public void newGame(View view){
+        Intent intent = new Intent(this, GameActivity.class);
+        View continueButton = findViewById(R.id.continueGame);
+
+        try{
+            preferences = getSharedPreferences(GameActivity.SavedData, Context.MODE_PRIVATE);
+            preferences.edit().clear().commit();
+        }catch (Exception e){
+            Log.e("MainActivity","Shared preferences hittades inte");
+        }
+
+        startActivity(intent);
+        continueButton.setEnabled(true);
+    }
+
+    // Resumes the game with saved shared preferences
+    public void continueGame(View view){
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }

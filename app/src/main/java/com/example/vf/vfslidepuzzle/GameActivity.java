@@ -1,19 +1,34 @@
 package com.example.vf.vfslidepuzzle;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 
 public class GameActivity extends ActionBarActivity {
+
+    public static final String SavedData = "SavedData" ;
+    private SharedPreferences preferences;
+    private EditText textField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-    }
+        preferences = getSharedPreferences(SavedData, Context.MODE_PRIVATE);
 
+        textField = (EditText)findViewById(R.id.testText);
+
+        // If shared preference set, load to textField
+        if(preferences.getString("savedText", null) != null){
+            textField.setText(preferences.getString("savedText", null));
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,5 +50,13 @@ public class GameActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        preferences.edit().putString("savedText", this.textField.getText().toString()).commit();
+
     }
 }

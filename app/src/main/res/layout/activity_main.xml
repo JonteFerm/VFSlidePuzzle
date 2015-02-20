@@ -15,14 +15,16 @@
     />
 
     <Button
+        android:id="@+id/newGame"
         style="@style/MenuButtons"
         android:text="@string/start_button"
         android:onClick="newGame"
     />
     <Button
+        android:id="@+id/continueGame"
         style="@style/MenuButtons"
         android:text="@string/continue_button"
-        android:onClick="newGame"
+        android:onClick="continueGame"
     />
     <Button
         style="@style/MenuButtons"
