@@ -53,8 +53,8 @@ public class GameActivity extends ActionBarActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void onPause() {
+        super.onPause();
 
         preferences.edit().putString("savedText", this.textField.getText().toString()).commit();
 
