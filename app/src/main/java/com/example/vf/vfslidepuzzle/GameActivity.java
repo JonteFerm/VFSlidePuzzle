@@ -7,19 +7,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-
+import android.widget.GridView;
 
 public class GameActivity extends ActionBarActivity {
 
     public static final String SavedData = "SavedData" ;
     private SharedPreferences preferences;
     private EditText textField;
+    private GridView grid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         preferences = getSharedPreferences(SavedData, Context.MODE_PRIVATE);
+        grid = (GridView) findViewById(R.id.game_grid);
+        grid.setAdapter(new BrickAdapter(this));
 
         textField = (EditText)findViewById(R.id.testText);
 
@@ -27,6 +30,7 @@ public class GameActivity extends ActionBarActivity {
         if(preferences.getString("savedText", null) != null){
             textField.setText(preferences.getString("savedText", null));
         }
+
 
     }
 
