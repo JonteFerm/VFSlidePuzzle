@@ -1,34 +1,31 @@
 package com.example.vf.vfslidepuzzle;
 
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.GridView;
 
 public class GameActivity extends ActionBarActivity {
 
-    public static final String SavedData = "SavedData" ;
     private SharedPreferences preferences;
-    private EditText textField;
     private GridView grid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        preferences = getSharedPreferences(SavedData, Context.MODE_PRIVATE);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         grid = (GridView) findViewById(R.id.game_grid);
         grid.setAdapter(new BrickAdapter(this));
 
-        textField = (EditText)findViewById(R.id.testText);
-
-        // If shared preference set, load to textField
-        if(preferences.getString("savedText", null) != null){
-            textField.setText(preferences.getString("savedText", null));
+        // If shared preference set, load in BrickAdapter
+        if(preferences.getString("savedData", null) != null){
+            grid.getAdapter().load();
         }
 
 
@@ -56,11 +53,12 @@ public class GameActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Save game progress in the BrickAdapter
     @Override
     public void onPause() {
         super.onPause();
 
-        preferences.edit().putString("savedText", this.textField.getText().toString()).commit();
+        grid.getAdapter().save();
 
     }
 }

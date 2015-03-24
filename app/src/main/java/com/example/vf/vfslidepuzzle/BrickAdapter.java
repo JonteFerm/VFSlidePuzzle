@@ -1,6 +1,8 @@
 package com.example.vf.vfslidepuzzle;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,17 +13,18 @@ import java.util.ArrayList;
  * Created by Jonathan on 2015-03-24.
  */
 public class BrickAdapter extends BaseAdapter {
+    private SharedPreferences preferences;
     private Context context;
     private ArrayList<BrickView> bricks = new ArrayList<BrickView>();
 
     public BrickAdapter(Context context) {
         this.context = context;
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public void save(){
+    public void save() {
         //Saves the state of the bricks arraylist
     }
-
     public void load(){
         //Loads the saved bricks arraylist
     }
