@@ -10,25 +10,25 @@ import android.widget.GridView;
 
 public class GameActivity extends ActionBarActivity {
 
+    public static String SavedData;
     private SharedPreferences preferences;
     private GridView grid;
+    private BrickAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
+        SavedData = "hah";
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        adapter = new BrickAdapter((this));
         grid = (GridView) findViewById(R.id.game_grid);
-        grid.setAdapter(new BrickAdapter(this));
+        grid.setAdapter(adapter);
 
         // If shared preference set, load in BrickAdapter
-        if(preferences.getString("savedData", null) != null){
-            grid.getAdapter().load();
+        if (preferences.getString("savedData", null) != null) {
+            adapter.load();
         }
-
-
     }
 
     @Override
@@ -58,7 +58,7 @@ public class GameActivity extends ActionBarActivity {
     public void onPause() {
         super.onPause();
 
-        grid.getAdapter().save();
+        adapter.save();
 
     }
 }
