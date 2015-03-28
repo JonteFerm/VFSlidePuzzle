@@ -33,8 +33,9 @@ public class BrickAdapter extends BaseAdapter {
         //Move a brick from position to another
     }
 
-    public void checkMove(int pos){
+    public boolean checkMove(int pos){
         //Check if a move is possible for the brick at the specified position
+        return false;
     }
 
     @Override

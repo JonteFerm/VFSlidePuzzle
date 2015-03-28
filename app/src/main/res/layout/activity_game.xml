@@ -18,9 +18,5 @@
         android:layout_height="wrap_content"
         android:columnWidth="50dp"
         android:numColumns="5"
-
-        ></GridView>
-
-
-
+    />
 </RelativeLayout>
