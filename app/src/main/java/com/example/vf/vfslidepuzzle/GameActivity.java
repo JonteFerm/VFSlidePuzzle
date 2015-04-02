@@ -19,7 +19,7 @@ public class GameActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        SavedData = "hah";
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         adapter = new BrickAdapter((this));
         grid = (GridView) findViewById(R.id.game_grid);
